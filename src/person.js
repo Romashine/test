@@ -1,8 +1,8 @@
 /// <reference path="./main.js" />
 /**
- * 
- * @param {*} name 
- * @param {*} age 
+ * Creates person with name and age
+ * @param {*} name name of person
+ * @param {*} age age of person
  */
 function personCreate(name, age) {
     var person = {
