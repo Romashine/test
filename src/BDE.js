@@ -1,4 +1,5 @@
 var arrayDate = ["12.06.2017", "12.06.2017", "16.06.2017", "23.06.2017", "02.10.2017"];
+
 console.log(arrayDate);
 var eror = false; //ключ прерывания программы при возникновении ошибок
 
@@ -6,9 +7,9 @@ var eror = false; //ключ прерывания программы при во
  * Определение индекса в массиве искомой даты
  * @param {*} dayWanted искомая дата в массиве
  */
-function arrayFind(dayWanted) {
-    for (var i = 0; i < arrayDate.length; i++) {
-        if (dayWanted == arrayDate[i]) {
+function arrayFind(array, dayWanted) {
+    for (var i = 0; i < array.length; i++) {
+        if (dayWanted == array[i]) {
             return i;
         }
     }
@@ -20,15 +21,13 @@ function arrayFind(dayWanted) {
  * @param {*} oldDay старое значение даты
  * @param {*} newDay новое значение даты
  */
-function arrayEdit(oldDay, newDay) {
+function arrayEdit(array, oldDay, newDay) {
     eror = false;
     inputProtected(newDay);
-    switch (eror) {
-        case false:
-            arrayDate[arrayFind(oldDay)] = newDay
-            arraySort();
-            console.log(arrayDate)
-        default:
+    if (eror == false){
+            array[arrayFind(oldDay)] = newDay;
+            arraySort(array);
+            console.log(array);
     }
 }
 
@@ -36,16 +35,14 @@ function arrayEdit(oldDay, newDay) {
  * Добавление значения в массив
  * @param {*} newDay новая дата
  */
-function arrayAdd(newDay) {
-    var i = arrayDate.length;
+function arrayAdd(array, newDay) {
+    var i = array.length;
     eror = false;
     inputProtected(newDay);
-    switch (eror) {
-        case false:
-            arrayDate[i] = newDay;
-            arraySort();
-            console.log(arrayDate);
-        default:
+    if (eror == false) {
+        array[i] = newDay;
+        arraySort(array);
+        console.log(array);
     }
 }
 
@@ -53,37 +50,37 @@ function arrayAdd(newDay) {
  * Удаление элемента из массива
  * @param {*} date удаляемая дата из массива
  */
-function arrayDel(date) {
+function arrayDel(array, date) {
     var arrayDateNew = [];
-    arrayDate[arrayFind(date)] = null;
-    for (var i = 0, n = 0; i < arrayDate.length; i++) {
-        if (arrayDate[i] != null) {
-            console.log(arrayDate[i])
-            arrayDateNew[n] = arrayDate[i];
+    array[arrayFind(date)] = null;
+    for (var i = 0, n = 0; i < array.length; i++) {
+        if (array[i] != null) {
+            console.log(array[i])
+            arrayDateNew[n] = array[i];
             n++;
         }
     }
-    arrayDate = arrayDateNew;
-    console.log(arrayDate);
+    array = arrayDateNew;
+    console.log(array);
 }
 
 /**
  * Преобразует массив из дд/мм/гггг в гггг/мм/дд
  */
-function arrayRotate() {
+function arrayRotate(array) {
     var temp = "";
-    for (var i = 0; i < arrayDate.length; i++) {
+    for (var i = 0; i < array.length; i++) {
         for (var n = 6; n <= 9; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
-        temp += "."
+        temp += ".";
         for (var n = 3; n <= 5; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
         for (var n = 0; n < 2; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
-        arrayDate[i] = temp;
+        array[i] = temp;
         temp = "";
     }
 
@@ -92,23 +89,23 @@ function arrayRotate() {
 /**
  * Обратная функция arrayRotate
  */
-function arrayRRotate() {
+function arrayRRotate(array) {
     var temp = "";
-    for (var i = 0; i < arrayDate.length; i++) {
+    for (var i = 0; i < array.length; i++) {
 
         for (var n = 8; n <= 9; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
-        temp += "."
+        temp += ".";
         for (var n = 5; n <= 7; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
 
         for (var n = 0; n < 4; n++) {
-            temp += arrayDate[i].charAt(n);
+            temp += array[i].charAt(n);
         }
 
-        arrayDate[i] = temp;
+        array[i] = temp;
         temp = "";
     }
 
@@ -117,17 +114,25 @@ function arrayRRotate() {
 /**
  * Сортировка внутри массива
  */
-function arraySort() {
-    arrayRotate();
-    arrayDate.sort();
-    arrayRRotate();
+function arraySort(array) {
+    arrayRotate(array);
+    array.sort();
+    arrayRRotate(array);
 }
 
+
+/**
+ * Проверка на ввод даты согласно нужного формата
+ * @param {*} date 
+ */
 function inputProtected(date) {
     var temp = 0;
     if (date.length != 10) {
-        eror = true
+        eror = true;
+        console.log("формат ввода даты дд.мм.гггг");
+        return;
     }
+    //Цикл проверки каждого символа в значении i позиции c цыфрами n
     for (var i = 0; i < 10; i++) {
         for (var n = 0; n < 10; n++) {
             if (date.charAt(i) == n) {
@@ -137,9 +142,13 @@ function inputProtected(date) {
     }
     if (temp != 8) {
         eror = true;
+        console.log("формат ввода даты дд.мм.гггг");
+        return;
     }
     if (date.charAt(2) != "." && date.charAt(5) != ".") {
-        eror = true
+        eror = true;
+         console.log("формат ввода даты дд.мм.гггг");
+        return;
     }
     if (eror == true) {
         console.log("формат ввода даты дд.мм.гггг");
