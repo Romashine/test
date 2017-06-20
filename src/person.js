@@ -31,7 +31,7 @@ if (person1 != null) {
  * || or
  * > < == === != !== >= <=
  */
-
+/*
 switch (n) {
     case 1:
         break;
@@ -39,7 +39,7 @@ switch (n) {
         break;
     default:
 }
-
+*/
 for (var i = 0; i < array1.length; i++) {
     var item = array1[i];
     console.log("Item", i, item);
@@ -50,14 +50,14 @@ while (i < array1.length) {
     var item = array1[i];
     i++;
 }
-
+/*
 n = n + 1;
 n += 1;
 n++;
 ++n;
 
 str += "!!!"
-
+*/
 
 var str = "Bob";
 var num = 1;
