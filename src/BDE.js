@@ -1,8 +1,7 @@
-var eror = false; //ключ прерывания программы при возникновении ошибок
-
 /**
  * Определение индекса в массиве искомой даты
  * @param {*} dayWanted искомая дата в массиве
+ * @param {*} array массив в котором производится поиск
  */
 function arrayFind(array, dayWanted) {
     for (var i = 0; i < array.length; i++) {
@@ -17,51 +16,43 @@ function arrayFind(array, dayWanted) {
  * Изменение одной даты в массиве на другую
  * @param {*} oldDay старое значение даты
  * @param {*} newDay новое значение даты
+ * @param {*} array массив в котором производится редактирование
  */
 function arrayEdit(array, oldDay, newDay) {
-    eror = false;
-    inputProtected(newDay);
-    if (eror == false){
-            array[arrayFind(array, oldDay)] = newDay;
-            arraySort(array);
-            console.log(array);
+    if (!inputProtected(newDay)) {
+        array[arrayFind(array, oldDay)] = newDay;
+        arraySort(array);
+        return array;
     }
 }
 
 /**
  * Добавление значения в массив
  * @param {*} newDay новая дата
+ * @param {*} array массив в котором производится добавление
  */
 function arrayAdd(array, newDay) {
     var i = array.length;
-    eror = false;
-    inputProtected(newDay);
-    if (eror == false) {
+    if (!inputProtected(newDay)) {
         array[i] = newDay;
         arraySort(array);
-        console.log(array);
+        return array;
     }
 }
 
 /**
  * Удаление элемента из массива
  * @param {*} date удаляемая дата из массива
+ * @param {*} array массив в котором производится удаление
  */
 function arrayDel(array, date) {
     var arrayDateNew = [];
-    array[arrayFind(array, date)] = null;
-    for (var i = 0, n = 0; i < array.length; i++) {
-        if (array[i] != null) {
-            arrayDateNew[n] = array[i];
-            n++;
-        }
-    }
-    array = arrayDateNew;
-    console.log(array);
+    array.splice(arrayFind(array,date), 1);
+    return array;
 }
-
 /**
  * Преобразует массив из дд/мм/гггг в гггг/мм/дд
+ * @param {*} array массив в котором производится переворот
  */
 function arrayRotate(array) {
     var temp = "";
@@ -79,11 +70,12 @@ function arrayRotate(array) {
         array[i] = temp;
         temp = "";
     }
-
+    return array;
 }
 
 /**
  * Обратная функция arrayRotate
+ * @param {*} array массив в котором производится переворот
  */
 function arrayRRotate(array) {
     var temp = "";
@@ -104,16 +96,18 @@ function arrayRRotate(array) {
         array[i] = temp;
         temp = "";
     }
-
+    return array;
 }
 
 /**
  * Сортировка внутри массива
+ * @param {*} array массив в котором производится сортировка
  */
 function arraySort(array) {
     arrayRotate(array);
     array.sort();
     arrayRRotate(array);
+    return array;
 }
 
 
@@ -124,9 +118,8 @@ function arraySort(array) {
 function inputProtected(date) {
     var temp = 0;
     if (date.length != 10) {
-        eror = true;
         console.log("формат ввода даты дд.мм.гггг");
-        return;
+        return true;
     }
     //Цикл проверки каждого символа в значении i позиции c цыфрами n
     for (var i = 0; i < 10; i++) {
@@ -137,17 +130,12 @@ function inputProtected(date) {
         }
     }
     if (temp != 8) {
-        eror = true;
         console.log("формат ввода даты дд.мм.гггг");
-        return;
+        return true;
     }
     if (date.charAt(2) != "." && date.charAt(5) != ".") {
-        eror = true;
-         console.log("формат ввода даты дд.мм.гггг");
-        return;
-    }
-    if (eror == true) {
         console.log("формат ввода даты дд.мм.гггг");
+        return true;
     }
 }
 
@@ -159,16 +147,19 @@ function testArray() {
     arrayAdd(array1, "09.09.2009");
     arrayAdd(array1, "11.11.2011");
     arrayAdd(array1, "10.10.201");
+    console.log(array1);
 
-console.log("Создание массива 2");
+    console.log("Создание массива 2");
     arrayAdd(array2, "10.102010");
     arrayAdd(array2, "08.09.2008");
     arrayAdd(array2, "12.11.2012");
     arrayAdd(array2, "11.10.2011");
+    console.log(array2);
 
-console.log("функция Edit применяется к массиву 1, 10.10.2010 заменяем на 11.10.2010");
+    console.log("функция Edit применяется к массиву 1, 10.10.2010 заменяем на 11.10.2010");
     arrayEdit(array1, "10.10.2010", "11.10.2010");
+    console.log(array1);
     console.log("функция Del применяется к массиву 2, удаляем 12.11.2012");
     arrayDel(array2, "12.11.2012");
-
+    console.log(array2);
 }
