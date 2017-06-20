@@ -9,3 +9,10 @@ cd github
 gif clone https://github.com/Romashine/test.git
 cd test
 ```
+
+## Opening
+
+```
+cd /github/test
+code .
+```
