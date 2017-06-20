@@ -1,6 +1,3 @@
-var arrayDate = ["12.06.2017", "12.06.2017", "16.06.2017", "23.06.2017", "02.10.2017"];
-
-console.log(arrayDate);
 var eror = false; //ключ прерывания программы при возникновении ошибок
 
 /**
@@ -25,7 +22,7 @@ function arrayEdit(array, oldDay, newDay) {
     eror = false;
     inputProtected(newDay);
     if (eror == false){
-            array[arrayFind(oldDay)] = newDay;
+            array[arrayFind(array, oldDay)] = newDay;
             arraySort(array);
             console.log(array);
     }
@@ -52,10 +49,9 @@ function arrayAdd(array, newDay) {
  */
 function arrayDel(array, date) {
     var arrayDateNew = [];
-    array[arrayFind(date)] = null;
+    array[arrayFind(array, date)] = null;
     for (var i = 0, n = 0; i < array.length; i++) {
         if (array[i] != null) {
-            console.log(array[i])
             arrayDateNew[n] = array[i];
             n++;
         }
@@ -153,4 +149,26 @@ function inputProtected(date) {
     if (eror == true) {
         console.log("формат ввода даты дд.мм.гггг");
     }
+}
+
+//Проверка программы на ошибки
+var array1 = [], array2 = [];
+function testArray() {
+    console.log("Создание массива 1");
+    arrayAdd(array1, "10.10.2010");
+    arrayAdd(array1, "09.09.2009");
+    arrayAdd(array1, "11.11.2011");
+    arrayAdd(array1, "10.10.201");
+
+console.log("Создание массива 2");
+    arrayAdd(array2, "10.102010");
+    arrayAdd(array2, "08.09.2008");
+    arrayAdd(array2, "12.11.2012");
+    arrayAdd(array2, "11.10.2011");
+
+console.log("функция Edit применяется к массиву 1, 10.10.2010 заменяем на 11.10.2010");
+    arrayEdit(array1, "10.10.2010", "11.10.2010");
+    console.log("функция Del применяется к массиву 2, удаляем 12.11.2012");
+    arrayDel(array2, "12.11.2012");
+
 }
