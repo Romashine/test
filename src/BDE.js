@@ -1,5 +1,6 @@
 //@ts-check
-class Romario {
+
+class Collection {
     constructor() {
         this.array = [];
     }
@@ -140,59 +141,3 @@ class Romario {
         }
     }
 }
-
-//class
-function classTest() {
-    let item1 = new Romario();
-    let item2 = new Romario();
-    item1.Add("10.10.2010");
-    item1.Add("09.09.2009");
-    item1.Add("11.11.2011");
-    item1.Add("10.10.201");
-    console.log();
-    console.log("Создание массива 2");
-    item2.Add("10.102010");
-    item2.Add("08.09.2008");
-    item2.Add("12.11.2012");
-    item2.Add("11.10.2011");
-    console.log(item2.array);
-
-    console.log("функция Edit применяется к массиву 1, 10.10.2010 заменяем на 11.10.2010");
-    item1.Edit("10.10.2010", "11.10.2010");
-    console.log(item1.array);
-    console.log("функция Del применяется к массиву 2, удаляем 12.11.2012");
-    item2.Del("12.11.2012");
-    console.log(item2.array);
-}
-
-
-
-
-/*
-//Проверка программы на ошибки
-var array1 = [], array2 = [];
-function testArray() {
-    console.log("Создание массива 1");
-    arrayAdd(array1, "10.10.2010");
-    arrayAdd(array1, "09.09.2009");
-    arrayAdd(array1, "11.11.2011");
-    arrayAdd(array1, "10.10.201");
-    console.log(array1);
-
-    console.log("Создание массива 2");
-    arrayAdd(array2, "10.102010");
-    arrayAdd(array2, "08.09.2008");
-    arrayAdd(array2, "12.11.2012");
-    arrayAdd(array2, "11.10.2011");
-    console.log(array2);
-
-    console.log("функция Edit применяется к массиву 1, 10.10.2010 заменяем на 11.10.2010");
-    arrayEdit(array1, "10.10.2010", "11.10.2010");
-    console.log(array1);
-    console.log("функция Del применяется к массиву 2, удаляем 12.11.2012");
-    arrayDel(array2, "12.11.2012");
-    console.log(array2);
-}
-*/
-
-//Привет

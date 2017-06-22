@@ -1,6 +1,9 @@
+/// <reference path="./bde.js" />
+
+
 /**
  * 
- * Класс прородитель классов NomalOrder и SpecialOrder
+ * Базовый класс
  * @class Order Класс заказов
  */
 class Order {
@@ -21,7 +24,7 @@ class Order {
      * @param {any} operation Имя операции
      * @memberof Order
      */
-    log(operation){
+    log(operation) {
         console.log(this.typeOrder, "::", operation);
     }
 }
@@ -32,40 +35,68 @@ class Order {
  * @extends {Order}
  */
 class NormalOrder extends Order {
-    constructor(){
+    constructor() {
         super();
         this.typeOrder = "NormalOrder";
-    }    
-    dispatch(){
+    }
+    dispatch() {
         this.log("dispatch");
     }
-    receive(){
+    receive() {
         this.log("receive");
     }
 }
+/**
+ * Класс потомок Order
+ * 
+ * @class SpecialOrder
+ * @extends {Order}
+ */
 class SpecialOrder extends Order {
-    constructor(){
+    constructor() {
         super();
         this.typeOrder = "SpecialOrder";
-    }    
-    dispatch(){
+    }
+    dispatch() {
         this.log("dispatch");
     }
 }
- 
- /**
-  * Проверка вывода сообщений
-  * 
-  */
- function testOrders(){
-     const test1 = new Order("05.06.2017", 56);
-     const test2 = new NormalOrder("05.07.2017", 56);
-     const test3 = new SpecialOrder("05.08.2017", 56);
-     test1.confirm();
-     test1.close();
-     test2.confirm();
-     test2.dispatch();
-     test2.receive();
-     test3.confirm();
-     test3.dispatch();
- }
+
+// пример работы программы
+
+const order1 = new Order("2017.06.21", "Order2");
+const order2 = new SpecialOrder("2017.06.20", "Order1");
+
+const orders = new OrderArray();
+orders.add(order1);
+console.log(orders);
+orders.add(order2);
+console.log(orders);
+orders.add("not order"); // throw exception
+console.log(orders.length); // 2
+
+//orders.Sort();
+//orders.toString();
+/*
+Orders
+==================
+Order 1
+  name: Order1
+  date: 2017.06.20
+------------------
+Order 2
+  name: Order2
+  date: 2017.06.21
+==================
+Total: 2 orders
+
+*/
+
+class OrderArray extends Collection{
+    constructor(name, date){
+        super();
+        this.name = name;
+        this.date = date;
+    }
+
+}
